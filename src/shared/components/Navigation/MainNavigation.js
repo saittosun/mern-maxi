@@ -1,5 +1,5 @@
 // jshint esversion: 6
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import MainHeader from './MainHeader';
@@ -8,16 +8,23 @@ import './MainNavigation.css';
 import SideDrawer from './SideDrawer';
 
 const MainNavigation = props => {
+  // manage the state where the drawer is opened or not.
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+
+  const openDrawer = () => {
+    setDrawerIsOpen(true);
+  }
+
   return (
     // React gives you a special wrapper, react.fragment. This doesn't render any real HTML element to the screen, it just fulfills this requirement of having one root element and then in there, you can have as many side by side or nested elements as you want.
     <React.Fragment>
-      <SideDrawer>
+      {drawerIsOpen && <SideDrawer>
         <nav className="main-navigation__drawer-nav">
           <NavLinks />
         </nav>
-      </SideDrawer>
+      </SideDrawer>}
       <MainHeader>
-        <button className="main-navigation__menu-btn">
+        <button className="main-navigation__menu-btn" onClick={openDrawer}>
           <span />
           <span />
           <span />
